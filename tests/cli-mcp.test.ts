@@ -188,7 +188,7 @@ async function startMCPServer() {
 // Send MCP request
 function sendRequest(
   serverProcess: ChildProcessWithoutNullStreams,
-  request: any,
+  request: any
 ): Promise<any> {
   return new Promise((resolve, reject) => {
     // Set timeout
@@ -213,9 +213,10 @@ function sendRequest(
         serverProcess.stdout.removeListener("data", dataHandler);
         resolve(parsed);
       } catch (error) {
+        console.log("[PARSE ERROR]", error);
         // Continue listening if not valid JSON
         console.log(
-          "[PARSE ERROR] Not a valid JSON response, continuing to listen",
+          "[PARSE ERROR] Not a valid JSON response, continuing to listen"
         );
       }
     };

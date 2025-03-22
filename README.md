@@ -34,16 +34,12 @@ bun install
 
 ```json
 {
-    "quiz": {
-        "command": "/Users/takeshiiijima/.bun/bin/bun",
-        "args": [
-            "run",
-            "<your path>/bun-mcp-template/src/index.ts"
-        ]
-    }
+  "quiz": {
+    "command": "/Users/takeshiiijima/.bun/bin/bun",
+    "args": ["run", "<your path>/bun-mcp-template/src/index.ts"]
+  }
 }
 ```
-
 
 ## Usage
 
@@ -86,6 +82,7 @@ This server provides an interactive quiz tool:
 ```
 
 Available categories:
+
 - general
 - science
 - history
@@ -93,6 +90,7 @@ Available categories:
 - entertainment
 
 Difficulty levels:
+
 - easy
 - medium
 - hard
@@ -139,7 +137,14 @@ quizQuestions.newCategory = {
 // Don't forget to update the schema to include the new category
 const QuizSchema = z.object({
   category: z
-    .enum(["general", "science", "history", "geography", "entertainment", "newCategory"])
+    .enum([
+      "general",
+      "science",
+      "history",
+      "geography",
+      "entertainment",
+      "newCategory",
+    ])
     .optional()
     .describe("The category of questions to ask"),
   // ...
