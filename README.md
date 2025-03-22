@@ -1,4 +1,4 @@
-# Quiz MCP Template
+# MCP Server Template
 
 A specialized Model Context Protocol (MCP) server implementation for interactive quizzes using Bun runtime.
 
