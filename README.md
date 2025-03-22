@@ -30,6 +30,21 @@ cd quiz-mcp-template
 bun install
 ```
 
+## Claude Desktop Setting
+
+```json
+{
+    "quiz": {
+        "command": "/Users/takeshiiijima/.bun/bin/bun",
+        "args": [
+            "run",
+            "<your path>/bun-mcp-template/src/index.ts"
+        ]
+    }
+}
+```
+
+
 ## Usage
 
 ### Running the Server
