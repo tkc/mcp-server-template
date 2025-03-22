@@ -1,6 +1,6 @@
-# Bun MCP Template
+# Quiz MCP Template
 
-A simple Model Context Protocol (MCP) server implementation using Bun runtime.
+A specialized Model Context Protocol (MCP) server implementation for interactive quizzes using Bun runtime.
 
 ## Environment Requirements
 
@@ -14,17 +14,17 @@ A simple Model Context Protocol (MCP) server implementation using Bun runtime.
 
 ## Features
 
-- Simple MCP server implementation
-- Basic tools: echo and greeting
-- Jest testing setup
-- CLI-based interaction test
+- Specialized quiz-focused MCP server implementation
+- Quiz tool with multiple categories and difficulty levels
+- Jest testing setup with MCP integration tests
+- Comprehensive test coverage
 
 ## Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/username/bun-mcp-template.git
-cd bun-mcp-template
+git clone https://github.com/username/quiz-mcp-template.git
+cd quiz-mcp-template
 
 # Install dependencies
 bun install
@@ -47,58 +47,49 @@ bun dev
 ```bash
 # Run all tests
 bun test
-
-# Run only MCP integration tests
-bun test:cli-jest
-
-# Run CLI based test
-bun test:cli
 ```
 
 ## MCP Tools
 
-This server provides two simple tools:
+This server provides an interactive quiz tool:
 
-1. **echo**: Echoes back any message you send
+**get_quiz**: Provides quiz questions across different categories and difficulty levels
 
-   ```json
-   {
-     "method": "tools/call",
-     "params": {
-       "name": "echo",
-       "arguments": {
-         "message": "Hello, world!"
-       }
-     },
-     "jsonrpc": "2.0",
-     "id": 1
-   }
-   ```
+```json
+{
+  "method": "tools/call",
+  "params": {
+    "name": "get_quiz",
+    "arguments": {
+      "category": "science",
+      "difficulty": "medium"
+    }
+  },
+  "jsonrpc": "2.0",
+  "id": 1
+}
+```
 
-2. **greeting**: Provides a personalized greeting
-   ```json
-   {
-     "method": "tools/call",
-     "params": {
-       "name": "greeting",
-       "arguments": {
-         "name": "John"
-       }
-     },
-     "jsonrpc": "2.0",
-     "id": 2
-   }
-   ```
+Available categories:
+- general
+- science
+- history
+- geography
+- entertainment
+
+Difficulty levels:
+- easy
+- medium
+- hard
 
 ## Project Structure
 
 ```
-bun-mcp-template/
+quiz-mcp-template/
 ├── src/
-│   └── index.ts       # Main MCP server implementation
+│   └── index.ts       # Main Quiz MCP server implementation
 ├── tests/
 │   └── cli-mcp.test.ts # MCP integration tests
-├── cli-test.ts        # CLI-based test script
 ├── package.json
 ├── tsconfig.json
 └── README.md
@@ -106,48 +97,38 @@ bun-mcp-template/
 
 ## Development
 
-### Adding New Tools
+### Extending Quiz Categories
 
-To add a new tool to the MCP server, follow this pattern:
+To add new quiz categories or questions, modify the `quizQuestions` object in `src/index.ts`:
 
 ```typescript
-// 1. Define schema
-const MyToolSchema = z.object({
-  parameter1: z.string().describe("Description of parameter1"),
-  parameter2: z.number().optional().describe("Description of parameter2"),
-});
+// Add new category
+quizQuestions.newCategory = {
+  easy: [
+    { question: "Easy question 1?", answer: "Answer 1" },
+    { question: "Easy question 2?", answer: "Answer 2" },
+    // Add more questions...
+  ],
+  medium: [
+    { question: "Medium question 1?", answer: "Answer 1" },
+    { question: "Medium question 2?", answer: "Answer 2" },
+    // Add more questions...
+  ],
+  hard: [
+    { question: "Hard question 1?", answer: "Answer 1" },
+    { question: "Hard question 2?", answer: "Answer 2" },
+    // Add more questions...
+  ],
+};
 
-// 2. Implement tool
-server.tool(
-  "my_tool_name",
-  "Description of what this tool does.",
-  MyToolSchema.shape,
-  async (args) => {
-    try {
-      // Tool implementation
-      return {
-        content: [
-          {
-            type: "text",
-            text: "Response from the tool",
-          },
-        ],
-        isError: false,
-      };
-    } catch (error) {
-      // Error handling
-      return {
-        content: [
-          {
-            type: "text",
-            text: `An error occurred: ${error instanceof Error ? error.message : String(error)}`,
-          },
-        ],
-        isError: true,
-      };
-    }
-  },
-);
+// Don't forget to update the schema to include the new category
+const QuizSchema = z.object({
+  category: z
+    .enum(["general", "science", "history", "geography", "entertainment", "newCategory"])
+    .optional()
+    .describe("The category of questions to ask"),
+  // ...
+});
 ```
 
 ## License
@@ -156,4 +137,4 @@ MIT
 
 ## Acknowledgements
 
-This project uses the Model Context Protocol (MCP) developed by Anthropic.
+This project uses the Model Context Protocol (MCP) developed by Anthropic and provides an educational quiz tool for AI assistants.
