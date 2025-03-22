@@ -1,6 +1,6 @@
 # MCP Server Template
 
-A specialized Model Context Protocol (MCP) server implementation for interactive quizzes using Bun runtime.
+MCP starter kit for building AI tools with Bun runtime 
 
 ## Environment Requirements
 
