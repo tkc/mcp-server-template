@@ -35,7 +35,7 @@ bun install
 ```json
 {
   "quiz": {
-    "command": "/Users/takeshiiijima/.bun/bin/bun",
+    "command": "<your path>/.bun/bin/bun",
     "args": ["run", "<your path>/bun-mcp-template/src/index.ts"]
   }
 }
